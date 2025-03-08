@@ -31,10 +31,10 @@ namespace SocialMediaAPI
 
             var app = builder.Build();
 
-            using var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-            await SocialMediaDbContetSeed.SeedUserAsync(userManager);
+            //using var scope = app.Services.CreateScope();
+            //var services = scope.ServiceProvider;
+            //var userManager = services.GetRequiredService<UserManager<AppUser>>();
+            //await SocialMediaDbContetSeed.SeedUserAsync(userManager);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
