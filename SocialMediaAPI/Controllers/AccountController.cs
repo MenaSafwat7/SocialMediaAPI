@@ -26,7 +26,7 @@ namespace SocialMediaAPI.Controllers
             return Ok(await Authentication.CheckEmailExist(email));
         }
         [Authorize]
-        [HttpGet]
+        [HttpGet("CurrentUser")]
         public async Task<ActionResult<UserDTO>> GetCurrentUser()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -34,6 +34,16 @@ namespace SocialMediaAPI.Controllers
             var result = await Authentication.GetUserByEmail(email);
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            List<AppUser> users = [
+                new AppUser(){ UserName = "Mena Safwat" , Bio = "dddddddddd", DisplayName = "dfdfdfd" , Email = "sddddddd"},
+                new AppUser(){ UserName = "Mena amir" , Bio = "dddddddddd", DisplayName = "dfdfdfd" , Email = "sddddddd"}
+                ];
+            return Ok(users);
         }
 
 
