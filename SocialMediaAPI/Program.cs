@@ -5,6 +5,8 @@ using SocialMediaAPI.Abstraction.Repository;
 using SocialMediaAPI.models.Identity;
 using SocialMediaAPI.Presistence;
 using SocialMediaAPI.Repository;
+using SocialMediaAPI.Services;
+using SocialMediaAPI.Services.Abstraction;
 
 namespace SocialMediaAPI
 {
@@ -28,6 +30,8 @@ namespace SocialMediaAPI
                             .AddEntityFrameworkStores<SocialMediaDbContext>();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            builder.Services.AddScoped<IAuthunticationServices, AuthunticationServices>(); 
 
             var app = builder.Build();
 
