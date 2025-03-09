@@ -12,8 +12,8 @@ using SocialMediaAPI.Presistence;
 namespace SocialMediaAPI.Migrations
 {
     [DbContext(typeof(SocialMediaDbContext))]
-    [Migration("20250309001905_identityDB")]
-    partial class identityDB
+    [Migration("20250309022706_DB")]
+    partial class DB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

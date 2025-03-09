@@ -45,6 +45,13 @@ namespace SocialMediaAPI.Services
 
         public async Task<UserDTO> RegisterAsync(RegisterDTO register)
         {
+
+            var Email = await userManager.FindByEmailAsync(register.email);
+            if(Email is not null)
+            {
+                throw new Exception("Email is already exist");
+            }
+
             var user = new AppUser
             {
                 Email = register.email,

@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialMediaAPI.Abstraction.Repository;
@@ -31,8 +32,6 @@ namespace SocialMediaAPI
                             .AddEntityFrameworkStores<SocialMediaDbContext>()
                             .AddDefaultTokenProviders();
 
-            //builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            //                .AddEntityFrameworkStores<SocialMediaDbContext>();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -47,6 +46,26 @@ namespace SocialMediaAPI
             //await SocialMediaDbContetSeed.SeedUserAsync(userManager);
 
             // Configure the HTTP request pipeline.
+
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status200OK; // Return 200 OK
+                    context.Response.ContentType = "application/json";
+
+                    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    if (exceptionHandlerPathFeature?.Error != null)
+                    {
+                        await context.Response.WriteAsync(new
+                        {
+                            Message = "An error occurred, but the request was handled gracefully."
+                        }.ToString());
+                    }
+                });
+            });
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
