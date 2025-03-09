@@ -6,7 +6,7 @@ using SocialMediaAPI.models.Identity;
 
 namespace SocialMediaAPI.Presistence
 {
-    public class SocialMediaDbContext : DbContext 
+    public class SocialMediaDbContext : IdentityDbContext<AppUser, IdentityRole<string>, string>
     {
         public SocialMediaDbContext(DbContextOptions<SocialMediaDbContext> options): base(options) 
         {

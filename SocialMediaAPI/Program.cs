@@ -26,10 +26,16 @@ namespace SocialMediaAPI
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
             });
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                            .AddEntityFrameworkStores<SocialMediaDbContext>();
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                            .AddEntityFrameworkStores<SocialMediaDbContext>()
+                            .AddDefaultTokenProviders();
+
+            //builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            //                .AddEntityFrameworkStores<SocialMediaDbContext>();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
             builder.Services.AddScoped<IAuthunticationServices, AuthunticationServices>(); 
 

@@ -8,5 +8,9 @@
         {
             Errors = errors;
         }
+        public override string ToString()
+        {
+            return $"{base.Message}\nErrors:\n{string.Join("\n", Errors)}";
+        }
     }
 }

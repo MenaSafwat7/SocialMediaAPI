@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SocialMediaAPI.DTOs;
@@ -13,7 +12,7 @@ using System.Text;
 
 namespace SocialMediaAPI.Services
 {
-    public class AuthunticationServices(UserManager<AppUser> userManager, IOptions<JwtOptions> options, IMapper mapper) : IAuthunticationServices
+    public class AuthunticationServices(UserManager<AppUser> userManager, IOptions<JwtOptions> options) : IAuthunticationServices
     {
         public async Task<bool> CheckEmailExist(string Email)
         {
@@ -57,8 +56,8 @@ namespace SocialMediaAPI.Services
             var result = await userManager.CreateAsync(user, register.password);
             if (!result.Succeeded)
             {
-                var errors = result.Errors.Select(error => error.Description).ToList();
-                throw new Exceptions.ValidationException(errors);
+                var errorss = result.Errors.Select(error => error.Description).ToList();
+                throw new Exceptions.ValidationException(errorss);
             }
 
             return new UserDTO(

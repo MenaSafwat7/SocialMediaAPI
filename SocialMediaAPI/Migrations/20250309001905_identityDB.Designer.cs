@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMediaAPI.Presistence;
 
@@ -11,9 +12,11 @@ using SocialMediaAPI.Presistence;
 namespace SocialMediaAPI.Migrations
 {
     [DbContext(typeof(SocialMediaDbContext))]
-    partial class SocialMediaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250309001905_identityDB")]
+    partial class identityDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +183,7 @@ namespace SocialMediaAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("SocialMediaAPI.models.Identity.AppUser", b =>
@@ -279,7 +282,7 @@ namespace SocialMediaAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("likes", (string)null);
+                    b.ToTable("likes");
                 });
 
             modelBuilder.Entity("SocialMediaAPI.models.Messages", b =>
@@ -308,7 +311,7 @@ namespace SocialMediaAPI.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("messages", (string)null);
+                    b.ToTable("messages");
                 });
 
             modelBuilder.Entity("SocialMediaAPI.models.Notifications", b =>
@@ -331,7 +334,7 @@ namespace SocialMediaAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("notifications", (string)null);
+                    b.ToTable("notifications");
                 });
 
             modelBuilder.Entity("SocialMediaAPI.models.Post", b =>
@@ -356,7 +359,7 @@ namespace SocialMediaAPI.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("posts", (string)null);
+                    b.ToTable("posts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
