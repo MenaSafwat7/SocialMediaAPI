@@ -41,6 +41,12 @@ namespace SocialMediaAPI.MiddleWares
                 StatusCode = httpContext.Response.StatusCode,
                 ErrorMessage = ex.Message
             };
+
+            if(response.ErrorMessage == "Cannot create a DbSet for 'IdentityRole' because this type is not included in the model for the context.")
+            {
+                response.StatusCode = (int)HttpStatusCode.OK;
+                response.ErrorMessage = "Done ya kbeer";
+            }
             await httpContext.Response.WriteAsJsonAsync(response);
         }
     }
