@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialMediaAPI.Abstraction.Repository;
+using SocialMediaAPI.MiddleWares;
 using SocialMediaAPI.models.Identity;
 using SocialMediaAPI.Presistence;
 using SocialMediaAPI.Repository;
 using SocialMediaAPI.Services;
 using SocialMediaAPI.Services.Abstraction;
+using System.Runtime.CompilerServices;
 
 namespace SocialMediaAPI
 {
@@ -40,6 +42,8 @@ namespace SocialMediaAPI
 
             var app = builder.Build();
 
+            app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+
             //using var scope = app.Services.CreateScope();
             //var services = scope.ServiceProvider;
             //var userManager = services.GetRequiredService<UserManager<AppUser>>();
@@ -47,23 +51,23 @@ namespace SocialMediaAPI
 
             // Configure the HTTP request pipeline.
 
-            app.UseExceptionHandler(errorApp =>
-            {
-                errorApp.Run(async context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status200OK; // Return 200 OK
-                    context.Response.ContentType = "application/json";
+            //app.UseExceptionHandler(errorApp =>
+            //{
+            //    errorApp.Run(async context =>
+            //    {
+            //        context.Response.StatusCode = StatusCodes.Status200OK; // Return 200 OK
+            //        context.Response.ContentType = "application/json";
 
-                    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-                    if (exceptionHandlerPathFeature?.Error != null)
-                    {
-                        await context.Response.WriteAsync(new
-                        {
-                            Message = "An error occurred, but the request was handled gracefully."
-                        }.ToString());
-                    }
-                });
-            });
+            //        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+            //        if (exceptionHandlerPathFeature?.Error != null)
+            //        {
+            //            await context.Response.WriteAsync(new
+            //            {
+            //                Message = "An error occurred, but the request was handled gracefully."
+            //            }.ToString());
+            //        }
+            //    });
+            //});
 
 
             if (app.Environment.IsDevelopment())
